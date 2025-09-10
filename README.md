@@ -30,7 +30,7 @@ completions (streaming or not), and now... generate embeddings as well!
 Add it to your `Cargo.toml`:
 
 ```toml
-lm-studio-api-extended = "0.1.2"
+lm-studio-api-extended = "0.1.3"
 ```
 
 ## Examples
