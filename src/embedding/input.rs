@@ -5,32 +5,64 @@
 use crate::prelude::*;
 
 // A message or text to be embedded
-#[derive(Debug, Clone, From, Serialize, Deserialize)]
-pub struct Input {
-    // The content to be embedded. This is the raw text that will 
-    // be converted into an embedding vector.
-    pub content: String
+#[derive(Debug, Clone, From, Deserialize)]
+pub enum EmbeddingInput {
+    Sentence(String),
+    Sentences(Vec<String>)
 }
+
 /*
-The reason for making it a struct, is to make extending it 
-later on much easier
+The reason for making it an enum is to easily support 
+different input types now and allow for easy future extension.
 */
 
+impl From<&str> for EmbeddingInput {
+    fn from(value: &str) -> Self {
+        EmbeddingInput::Sentence(value.to_string())
+    }
+}
 
-impl Input {
-    // Create a new Input from any string-like type. This is useful for constructing inputs from various sources.
-    pub fn new<S: Into<String>>(content: S) -> Self {
-        Self {
-            content: content.into()
+impl From<String> for EmbeddingInput {
+    fn from(value: String) -> Self {
+        EmbeddingInput::Sentence(value)
+    }
+}
+
+impl From<Vec<String>> for EmbeddingInput {
+    fn from(value: Vec<String>) -> Self {
+        EmbeddingInput::Sentences(value)       
+    }
+}
+
+impl From<Vec<&str>> for EmbeddingInput {
+    fn from(value: Vec<&str>) -> Self {
+        let converted = value.into_iter()
+            .map(|val| val.to_string())
+            .collect::<Vec<String>>();
+
+        EmbeddingInput::Sentences(converted)
+    }
+}
+
+impl From<&[&str]> for EmbeddingInput {
+    fn from(value: &[&str]) -> Self {
+        let converted = value
+            .iter()
+            .map(|val| val.to_string())
+            .collect::<Vec<String>>();
+
+        EmbeddingInput::Sentences(converted)
+    }
+}
+
+impl Serialize for EmbeddingInput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer {
+        
+        match self {
+            EmbeddingInput::Sentence(text) => serializer.serialize_str(text),
+            EmbeddingInput::Sentences(vec) => vec.serialize(serializer)
         }
-    }
-
-    // Get the length of the content in characters. This can be used for validation or analytics.
-    pub fn len(&self) -> usize {
-        self.content.chars().count()
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.content.trim().is_empty()
     }
 }

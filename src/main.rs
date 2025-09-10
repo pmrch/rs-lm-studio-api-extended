@@ -6,7 +6,6 @@ async fn main() {
     let mut chat = Chat::new(
         Model::Gemma3_4b,   // select AI model
         Context::new("You're Jarvis - my personal assistant. Call me master", 4090),  // write system prompt + set max size of messages context
-        "9090"    // server IP port
     );
     
 

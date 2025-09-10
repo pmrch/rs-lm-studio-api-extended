@@ -5,7 +5,6 @@ async fn main() {
     let mut chat = Chat::new(
         Model::Kimiko13b,   // Replace model if you are using a different one
         Context::new("You're Jarvis – my assistant.", 4090),
-        "1234"
     );
 
     loop {

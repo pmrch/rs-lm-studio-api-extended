@@ -31,7 +31,7 @@ impl FromStr for EmbeddingData {
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
         serde_json::from_str(s)
-            .map_err(|e| ParseEmbeddingDataError(e.to_string()))
+            .map_err(|e: serde_json::Error| ParseEmbeddingDataError(e.to_string()))
     }
 }
 

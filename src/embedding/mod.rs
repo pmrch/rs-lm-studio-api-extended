@@ -2,7 +2,7 @@
 // It provides the main API types and structures for working with embeddings.
 
 // Embedding logic and API client
-pub mod embedding;        pub use embedding::{ Embedding, EmbeddingResult };
+pub mod embedding;        pub use embedding::{ Embedder, EmbeddingResult };
 
 // Embedding model definition, including supported and custom models
 pub mod embed_model;      pub use embed_model::EmbeddingModel;
@@ -11,7 +11,7 @@ pub mod embed_model;      pub use embed_model::EmbeddingModel;
 pub mod embed_request;    pub use embed_request::EmbeddingRequest;
 
 // Input struct for embedding, representing a single message or text to embed
-pub mod input;            pub use input::Input;
+pub mod input;            pub use input::EmbeddingInput;
 
 // Embedding response structure, representing the result returned by the embedding API
 pub mod embed_response;   pub use embed_response::EmbeddingResponse;

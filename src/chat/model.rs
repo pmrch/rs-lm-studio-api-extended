@@ -21,11 +21,14 @@ pub enum Model {
     Gemma3_27b,
 
     // TODO: to add more models..
-    #[serde(rename = "mythomax-l2-kimiko-v2-13b")]
+    #[serde(rename = "mythomax-l2-kimiko-v2-13b@q3_k_m")]
     Kimiko13b,
 
-    #[serde(rename = "meta-llama-3.1-8b-instruct")]
+    #[serde(rename = "meta-llama-3.1-8b-instruct@Q4_k_m")]
     Llama3_1_8b,
+
+    #[serde(rename = "gguf-flan-t5-large")]
+    FlanT5,
     
     // custom:
     #[from]

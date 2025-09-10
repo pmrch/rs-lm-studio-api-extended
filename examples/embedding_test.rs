@@ -1,11 +1,11 @@
-use lm_studio_api_extended::embedding::*;
+use lm_studio_api_extended::{embedding::*, input::EmbeddingInput};
 
 #[tokio::main]
 async fn main() {
-    let mut embedder = Embedding::new(None); // Uses default localhost:1234
+    let mut embedder = Embedder::new(None); // Uses default localhost:1234
     let req = EmbeddingRequest {
         model: EmbeddingModel::AllMiniLmL6,
-        input: vec!["Rust is magic.".to_string()],
+        input: EmbeddingInput::from("Rust is magic."),
         encoding_format: Some("float".to_string()),
     };
 

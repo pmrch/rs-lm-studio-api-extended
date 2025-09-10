@@ -8,7 +8,6 @@ async fn main() {
             "You're Jarvis – my assistant.", 
             4090
         ),
-        "1234"
     );
 
     let request = Request {

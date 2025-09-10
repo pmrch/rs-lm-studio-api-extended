@@ -22,7 +22,7 @@ impl EmbeddingResult {
 }
 
 /// Embedding client for LM Studio API
-pub struct Embedding {
+pub struct Embedder {
     /// API endpoint URL for embedding requests
     pub url: String,
 
@@ -30,7 +30,7 @@ pub struct Embedding {
     pub client: Client
 }
 
-impl Embedding {
+impl Embedder {
     /// Create a new Embedding client for a given port. 
     /// This sets up the endpoint and HTTP client.
     pub fn new(url: Option<String>) -> 

@@ -4,9 +4,24 @@ use super::{ Role, Message };
 // Chat context
 #[derive(Debug, Clone)]
 pub struct Context {
-    messages: Vec<Message>,
-    context_tokens: usize,
-    context_limit: usize
+    pub messages: Vec<Message>,
+    pub context_tokens: usize,
+    pub context_limit: usize
+}
+
+impl Default for Context {
+    fn default() -> Self {
+        Context { 
+            messages: vec![
+                Message { 
+                    role: Role::System, 
+                    content: "You are a helpful, knowledgeable, and friendly assistant.".to_string()
+                }
+            ], 
+            context_tokens: 0, 
+            context_limit: 4090 
+        }
+    }
 }
 
 impl Context {

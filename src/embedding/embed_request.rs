@@ -2,7 +2,7 @@
 /// embedding API request.
 /// It specifies the model, input texts, and optional 
 /// encoding format for the request.
-use crate::{prelude::*};
+use crate::{prelude::*, EmbeddingInput};
 use super::{ EmbeddingModel };
 
 
@@ -13,7 +13,7 @@ pub struct EmbeddingRequest {
     pub model: EmbeddingModel,
 
     /// Input text(s) to embed. Can be a batch of texts for efficiency.
-    pub input: Vec<String>,
+    pub input: EmbeddingInput,
 
     /// Optional encoding format (e.g., "float"). Controls the output format 
     /// of the embedding vector.
@@ -28,8 +28,17 @@ impl ::std::default::Default for EmbeddingRequest {
     fn default() -> Self {
         Self {
             model: EmbeddingModel::Custom("".into()),
-            input: vec![],
+            input: EmbeddingInput::from("Rust is magic."),
             encoding_format: Some("float".to_string())
+        }
+    }
+}
+
+impl EmbeddingRequest {
+    pub fn make_sendable(&self, input: EmbeddingInput) -> Vec<String> {
+        match input {
+            EmbeddingInput::Sentence(s) => vec![s],
+            EmbeddingInput::Sentences(ss) => ss
         }
     }
 }

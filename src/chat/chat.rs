@@ -18,7 +18,7 @@ pub struct Chat {
 
 impl Chat {
     // Creates new chat
-    pub fn new<M, C>(model: M, context: C, port: &str) -> Self
+    pub fn new<M, C>(model: M, context: C) -> Self
     where
         M: Into<Model>,
         C: Into<Context>
@@ -26,7 +26,7 @@ impl Chat {
         Self {
             model: model.into(),
             context: context.into(),
-            url: fmt!("http://127.0.0.1:{port}/v1/chat/completions"),
+            url: fmt!("http://127.0.0.1:1234/v1/chat/completions"),
             client: Client::new(),
             reader: None,
         }
